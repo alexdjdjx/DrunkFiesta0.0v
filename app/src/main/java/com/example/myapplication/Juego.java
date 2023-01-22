@@ -64,7 +64,7 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
         empezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Juego.this, startedGame.class);
+                Intent i = new Intent(Juego.this, Ruleta.class);
                 i.putStringArrayListExtra("Jugadores", (ArrayList<String>) players);
                 startActivity(i);
             }
