@@ -25,6 +25,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Juego extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -64,8 +65,20 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
         empezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(players.size() > 1) {
-                    Intent i = new Intent(Juego.this, Ruleta.class);
+                    Random generator = new Random();
+                    int number = generator.nextInt(2) + 1;
+                    Class activity =null;
+                    switch (number) {
+                        case 1:
+                            activity = Ruleta.class;
+                            break;
+                        default:
+                            activity = startedGame.class;
+                            break;
+                    }
+                    Intent i = new Intent(Juego.this, activity);
                     i.putStringArrayListExtra("Jugadores", (ArrayList<String>) players);
                     startActivity(i);
                 }else{
@@ -97,7 +110,8 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
             public void onClick(View view) {
                 switch (view.getId()) {
                 case R.id.bRegresar:
-                Intent i = new Intent(Juego.this, MainActivity.class);
+
+                    Intent i = new Intent(Juego.this, MainActivity.class);
                 startActivity(i);
                 }
             }
