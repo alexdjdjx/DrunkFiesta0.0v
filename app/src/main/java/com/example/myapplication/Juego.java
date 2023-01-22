@@ -33,6 +33,7 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
 
     private Button regresar;
     private Button anyadir;
+    private Button empezar;
     private Button showMdialog;
     private ListView listView;
     private EditText mTexto;
@@ -41,7 +42,7 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
-
+        empezar = (Button)findViewById(R.id.bEmpezar);
         mTexto = (EditText)findViewById(R.id.addText);
         anyadir = (Button)findViewById(R.id.button);
         regresar = (Button)findViewById(R.id.bRegresar);
@@ -50,16 +51,24 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
         anyadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String texto = mTexto.getText().toString().trim();
-                players.add(texto);
-                mTexto.getText().clear();
-                adapter = new ArrayAdapter<>(Juego.this,android.R.layout.simple_list_item_1,players);
-                listView.setAdapter(adapter);
-
+                if (!mTexto.getText().toString().equalsIgnoreCase("")) {
+                    String texto = mTexto.getText().toString().trim();
+                    players.add(texto);
+                    mTexto.getText().clear();
+                    adapter = new ArrayAdapter<>(Juego.this, android.R.layout.simple_list_item_1, players);
+                    listView.setAdapter(adapter);
+                }
             }
         });
 
-
+        empezar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Juego.this, startedGame.class);
+                i.putStringArrayListExtra("Jugadores", (ArrayList<String>) players);
+                startActivity(i);
+            }
+        });
         regresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
