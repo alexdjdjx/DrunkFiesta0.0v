@@ -8,65 +8,76 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.w3c.dom.Text;
 
-public class Juego extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Juego extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     @SuppressLint("MissingInflatedId")
-    @Override
 
 
+    private Button regresar;
+    private Button anyadir;
+    private Button showMdialog;
+    private ListView listView;
+    private EditText mTexto;
+    private List<String> players = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
-        Button regresar;
-        Button showMdialog;
+
+        mTexto = (EditText)findViewById(R.id.addText);
+        anyadir = (Button)findViewById(R.id.button);
         regresar = (Button)findViewById(R.id.bRegresar);
-        showMdialog = (Button)findViewById(R.id.btnShowMdialog);
-        showMdialog.setOnClickListener(new View.OnClickListener() {
+        listView = (ListView) findViewById(R.id.listview);
+        listView.setOnItemClickListener(this);
+        anyadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Juego.this);
-                View mView = getLayoutInflater().inflate(R.layout.dialog_spinner,null);
-                mBuilder.setTitle("Elige el numero de jugadores");
-                Spinner mSpinner = (Spinner) mView.findViewById(R.id.spinner);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(Juego.this, android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.NumeroJugadores));
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mSpinner.setAdapter(adapter);
+                String texto = mTexto.getText().toString().trim();
+                players.add(texto);
+                mTexto.getText().clear();
+                adapter = new ArrayAdapter<>(Juego.this,android.R.layout.simple_list_item_1,players);
+                listView.setAdapter(adapter);
 
-                mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (!mSpinner.getSelectedItem().toString().equalsIgnoreCase("Elige...")){
-                            Toast.makeText(Juego.this,mSpinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
-                            dialogInterface.dismiss();
-
-                        }
-                    }
-                });
-                mBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(Juego.this,"Cancelaste",Toast.LENGTH_SHORT).show();
-                    }
-                });
-                mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
-                dialog.show();
             }
         });
+
+
         regresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent( Juego.this,MainActivity.class);
+                switch (view.getId()) {
+                case R.id.bRegresar:
+                Intent i = new Intent(Juego.this, MainActivity.class);
                 startActivity(i);
+                }
             }
         });
+    }
+
+
+
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(this,"Item clicked"+i, Toast.LENGTH_SHORT).show();
     }
 }
