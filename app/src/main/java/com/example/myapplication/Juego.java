@@ -47,7 +47,7 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
         anyadir = (Button)findViewById(R.id.button);
         regresar = (Button)findViewById(R.id.bRegresar);
         listView = (ListView) findViewById(R.id.listview);
-        listView.setOnItemClickListener(this);
+
         anyadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,9 +64,32 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
         empezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Juego.this, Ruleta.class);
-                i.putStringArrayListExtra("Jugadores", (ArrayList<String>) players);
-                startActivity(i);
+                if(players.size() > 1) {
+                    Intent i = new Intent(Juego.this, Ruleta.class);
+                    i.putStringArrayListExtra("Jugadores", (ArrayList<String>) players);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(Juego.this,"Minimo 2 jugadores para empezar",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listItem, long l) {
+                new AlertDialog.Builder(Juego.this).setTitle("¿Quieres eliminar el nombre "+ players.get(listItem)+"?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        players.remove(listItem);
+                        adapter.notifyDataSetChanged();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create().show();
+
+                return false;
             }
         });
         regresar.setOnClickListener(new View.OnClickListener() {
