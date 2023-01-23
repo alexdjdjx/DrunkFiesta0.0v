@@ -163,7 +163,7 @@ private ConstraintLayout fondo;
 
                                 } else {
 
-                                    handler.postDelayed(this::run,(int) (Math.random() * 3750)+1000);
+                                    handler.postDelayed(this::run,(int) (Math.random() * 2750)+500);
 
                                     bjugador1.setText("¡NO me Pulses "+jugadores[jugador1]+"!");
 

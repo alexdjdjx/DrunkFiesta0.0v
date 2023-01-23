@@ -57,25 +57,27 @@ private ConstraintLayout fondo;
                 fondo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Random generator = new Random();
-                        int number = generator.nextInt(3) + 1;
-                        Class activity = null;
-                        switch (number) {
-                            case 1:
-                                activity = Ruleta.class;
-                                break;
-                            case 2:
-                                activity = startedGame.class;
-                                break;
-                            default:
-                                activity =JuegoPulsarBoton.class;
-                                break;
+                        if(!isSpinning) {
+                            Random generator = new Random();
+                            int number = generator.nextInt(3) + 1;
+                            Class activity = null;
+                            switch (number) {
+                                case 1:
+                                    activity = Ruleta.class;
+                                    break;
+                                case 2:
+                                    activity = startedGame.class;
+                                    break;
+                                default:
+                                    activity = JuegoPulsarBoton.class;
+                                    break;
 
-                        } Intent i = new Intent(Ruleta.this,activity );
-                        i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
-                        startActivity(i);
-                        overridePendingTransition(0, 0);
-
+                            }
+                            Intent i = new Intent(Ruleta.this, activity);
+                            i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
+                            startActivity(i);
+                            overridePendingTransition(0, 0);
+                        }
                     }
                 });}
 
