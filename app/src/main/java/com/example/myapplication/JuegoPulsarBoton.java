@@ -21,6 +21,7 @@ private TextView player1;
 private int [] pulsado = new int[1];
 private Button bjugador1,bjugador2;
 private TextView player2;
+
 private TextView label;
 private TextView label2;
 private ConstraintLayout fondo;
@@ -161,7 +162,7 @@ private ConstraintLayout fondo;
 
                     handler.postDelayed(runnable, (int) (Math.random() * 5500)+1000);
 
-
+            fondo.setOnClickListener(null);
             }
 
         });
