@@ -1,8 +1,12 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -25,12 +29,14 @@ private ImageView ruleta;
     private ArrayList<String> lista = new ArrayList<String>();
 private int degree = 0;
 private boolean isSpinning = false;
+private ConstraintLayout fondo;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruleta);
         ruleta = findViewById(R.id.ruleta);
+        fondo = findViewById(R.id.fondoRuleta);
         Button boton = findViewById(R.id.bRuleta);
         textView =(TextView) findViewById(R.id.placeHolder);
         getDegreeSectors();
@@ -47,7 +53,32 @@ private boolean isSpinning = false;
             spin();
             isSpinning = true;
             }
-            }
+                boton.setVisibility(View.INVISIBLE);
+                fondo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Random generator = new Random();
+                        int number = generator.nextInt(3) + 1;
+                        Class activity = null;
+                        switch (number) {
+                            case 1:
+                                activity = Ruleta.class;
+                                break;
+                            case 2:
+                                activity = startedGame.class;
+                                break;
+                            default:
+                                activity =JuegoPulsarBoton.class;
+                                break;
+
+                        } Intent i = new Intent(Ruleta.this,activity );
+                        i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
+                        startActivity(i);
+                        overridePendingTransition(0, 0);
+
+                    }
+                });}
+
         });
     }
     private void spin(){
@@ -82,6 +113,29 @@ private boolean isSpinning = false;
         for (int i = 0; i < sectors.length; i++){
             sectorGrados[i] = (i+1)*sectorGrado;
         }
+    }
+    public void onBackPressed() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(Ruleta.this);
+        mBuilder.setTitle("¿Estás seguro de que quieres salir del juego?");
+        mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                Intent il = new Intent(Ruleta.this, Juego.class);
+                startActivity(il);
+
+            }
+
+
+        });
+        mBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        mBuilder.create().show();
     }
 
 }

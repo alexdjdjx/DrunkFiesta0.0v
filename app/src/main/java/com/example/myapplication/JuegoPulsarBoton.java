@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
 import androidx.annotation.ColorInt;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class JuegoPulsarBoton extends AppCompatActivity {
 private ArrayList<String> lista = new ArrayList<String>();
@@ -87,11 +91,35 @@ private ConstraintLayout fondo;
                                     bjugador1.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            fondo.setOnClickListener(null);
+
                                             bjugador1.setVisibility(View.INVISIBLE);
                                             bjugador2.setVisibility(View.INVISIBLE);
                                             label2.setText("¡Has ganado "+jugadores[jugador1]+"!");
                                             label2.setVisibility(View.VISIBLE);
+                                            fondo.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Random generator = new Random();
+                                                    int number = generator.nextInt(2) + 1;
+                                                    Class activity;
+                                                    switch (number) {
+                                                        case 1:
+                                                            activity = Ruleta.class;
+                                                            break;
+                                                        case 2:
+                                                            activity = startedGame.class;
+                                                            break;
+                                                        default:
+                                                            activity = JuegoPulsarBoton.class;
+                                                            break;
+
+                                                    } Intent i = new Intent(JuegoPulsarBoton.this, activity);
+                                                    i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
+                                                    startActivity(i);
+                                                    overridePendingTransition(0, 0);
+
+                                                }
+                                            });
 
                                         }
                                     });
@@ -102,17 +130,40 @@ private ConstraintLayout fondo;
                                     bjugador2.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            fondo.setOnClickListener(null);
+
                                             bjugador1.setVisibility(View.INVISIBLE);
                                             bjugador2.setVisibility(View.INVISIBLE);
                                             label2.setText("¡Has ganado "+jugadores[finalJugador]+"!");
                                             label2.setVisibility(View.VISIBLE);
+                                            fondo.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Random generator = new Random();
+                                                    int number = generator.nextInt(3) + 1;
+                                                    Class activity = null;
+                                                    switch (number) {
+                                                        case 1:
+                                                            activity = Ruleta.class;
+                                                            break;
+                                                        case 2:
+                                                            activity = startedGame.class;
+                                                            break;
+                                                        default:
+                                                            activity = JuegoPulsarBoton.class;
+                                                            break;
+
+                                                    } Intent i = new Intent(JuegoPulsarBoton.this, activity);
+                                                    i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
+                                                    startActivity(i);
+                                                    overridePendingTransition(0, 0);
+                                                }
+                                            });
                                         }
                                     });
 
                                 } else {
 
-                                    handler.postDelayed(this::run,(int) (Math.random() * 5000)+1000);
+                                    handler.postDelayed(this::run,(int) (Math.random() * 3750)+1000);
 
                                     bjugador1.setText("¡NO me Pulses "+jugadores[jugador1]+"!");
 
@@ -121,12 +172,35 @@ private ConstraintLayout fondo;
                                     bjugador1.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            fondo.setOnClickListener(null);
+
                                             bjugador1.setVisibility(View.INVISIBLE);
                                             bjugador2.setVisibility(View.INVISIBLE);
                                             label2.setText("Has perdido "+jugadores[jugador1]+" :(");
                                             label2.setVisibility(View.VISIBLE);
                                             handler.removeCallbacksAndMessages(null);
+                                            fondo.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Random generator = new Random();
+                                                    int number = generator.nextInt(3) + 1;
+                                                    Class activity = null;
+                                                    switch (number) {
+                                                        case 1:
+                                                            activity = Ruleta.class;
+                                                            break;
+                                                        case 2:
+                                                            activity = startedGame.class;
+                                                            break;
+                                                        default:
+                                                            activity = JuegoPulsarBoton.class;
+                                                            break;
+
+                                                    } Intent i = new Intent(JuegoPulsarBoton.this, activity);
+                                                    i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
+                                                    startActivity(i);
+                                                    overridePendingTransition(0, 0);
+                                                }
+                                            });
 
                                         }
                                     });
@@ -138,12 +212,36 @@ private ConstraintLayout fondo;
                                     bjugador2.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            fondo.setOnClickListener(null);
+
                                             bjugador1.setVisibility(View.INVISIBLE);
                                             bjugador2.setVisibility(View.INVISIBLE);
                                             label2.setText("Has perdido "+jugadores[finalJugador]+" :(");
                                             label2.setVisibility(View.VISIBLE);
                                             handler.removeCallbacksAndMessages(null);
+                                            fondo.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Random generator = new Random();
+                                                    int number = generator.nextInt(3) + 1;
+                                                    Class activity = null;
+                                                    switch (number) {
+                                                        case 1:
+                                                            activity = Ruleta.class;
+                                                            break;
+                                                        case 2:
+                                                            activity = startedGame.class;
+                                                            break;
+                                                        default:
+                                                            activity = JuegoPulsarBoton.class;
+                                                            break;
+
+                                                    } Intent i = new Intent(JuegoPulsarBoton.this, activity);
+                                                    i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
+                                                    startActivity(i);
+                                                    overridePendingTransition(0, 0);
+
+                                                }
+                                            });
                                         }
                                     });
 
@@ -162,11 +260,34 @@ private ConstraintLayout fondo;
 
                     handler.postDelayed(runnable, (int) (Math.random() * 5500)+1000);
 
-            fondo.setOnClickListener(null);
+                fondo.setOnClickListener(null);
             }
 
         });
 
             }
+    public void onBackPressed() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(JuegoPulsarBoton.this);
+        mBuilder.setTitle("¿Estás seguro de que quieres salir del juego?");
+        mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                Intent il = new Intent(JuegoPulsarBoton.this, Juego.class);
+                startActivity(il);
+
+            }
+
+
+        });
+        mBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+    mBuilder.create().show();
+    }
         };
 

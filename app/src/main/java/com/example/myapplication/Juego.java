@@ -123,8 +123,10 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
 
 
 
-
-
+    public void onBackPressed() {
+        Intent i = new Intent(Juego.this, MainActivity.class);
+        startActivity(i);
+    }
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Toast.makeText(this,"Item clicked"+i, Toast.LENGTH_SHORT).show();
