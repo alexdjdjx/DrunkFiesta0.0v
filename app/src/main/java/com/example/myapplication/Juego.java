@@ -68,14 +68,17 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
 
                 if(players.size() > 1) {
                     Random generator = new Random();
-                    int number = generator.nextInt(2) + 1;
+                    int number = generator.nextInt(3) + 1;
                     Class activity =null;
                     switch (number) {
                         case 1:
                             activity = Ruleta.class;
                             break;
-                        default:
+                        case 2:
                             activity = startedGame.class;
+                            break;
+                        default:
+                            activity = JuegoPulsarBoton.class;
                             break;
                     }
                     Intent i = new Intent(Juego.this, activity);
