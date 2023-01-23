@@ -18,6 +18,7 @@ public class JuegoPulsarBoton extends AppCompatActivity {
 private ArrayList<String> lista = new ArrayList<String>();
 private TextView textView;
 private TextView player1;
+private int [] pulsado = new int[1];
 private Button bjugador1,bjugador2;
 private TextView player2;
 private TextView label;
@@ -29,6 +30,7 @@ private ConstraintLayout fondo;
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_juego_pulsar_boton);
+        pulsado[0]=0;
         label2 = (TextView) findViewById(R.id.labelJBotones2);
         label2.setVisibility(View.INVISIBLE);
         label = (TextView) findViewById(R.id.labelJBotones);
@@ -65,82 +67,101 @@ private ConstraintLayout fondo;
                 player2.setVisibility(View.INVISIBLE);
                 label.setVisibility(View.INVISIBLE);
                 label2.setVisibility(View.VISIBLE);
-                if (label2.getVisibility() == View.VISIBLE && player2.getVisibility() == View.INVISIBLE && player1.getVisibility() == View.INVISIBLE) {
+
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            bjugador1.setVisibility(View.INVISIBLE);
-                            bjugador2.setVisibility(View.INVISIBLE);
-                            int numeroAleatorio = (int) (Math.random() * (3 - 1) + 1);
-                            if (numeroAleatorio == 1) {
-                                bjugador1.setVisibility(View.VISIBLE);
-                                bjugador1.setText("¡Pulsame "+jugadores[jugador1]+"!");
-                                bjugador2.setText("¡Pulsame "+jugadores[finalJugador]+"!");
-                                bjugador1.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        bjugador1.setVisibility(View.INVISIBLE);
-                                        bjugador2.setVisibility(View.INVISIBLE);
-                                        label2.setText("¡Has ganado "+jugadores[jugador1]+"!");
-                                        label2.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                                bjugador2.setVisibility(View.VISIBLE);
-                                bjugador2.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        bjugador1.setVisibility(View.INVISIBLE);
-                                        bjugador2.setVisibility(View.INVISIBLE);
-                                        label2.setText("¡Has ganado "+jugadores[finalJugador]+"!");
-                                        label2.setVisibility(View.VISIBLE);
-                                    }
-                                });
 
-                            } else {
+                                label2.setVisibility(View.INVISIBLE);
+                                int numeroAleatorio = (int) (Math.random() * (3 - 1) + 1);
+                                if (numeroAleatorio == 1) {
 
-
-
-                                        bjugador1.setText("¡NO me Pulses "+jugadores[jugador1]+"!");
-                                        bjugador1.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                bjugador1.setVisibility(View.INVISIBLE);
-                                                bjugador2.setVisibility(View.INVISIBLE);
-                                                label2.setText("Has perdido "+jugadores[jugador1]+" :(");
-                                                label2.setVisibility(View.VISIBLE);
-
-                                            }
-                                        });
-                                        bjugador2.setText("¡NO me Pulses "+jugadores[finalJugador]+"!");
                                         bjugador1.setVisibility(View.VISIBLE);
+
+                                    bjugador1.setText("¡Pulsame "+jugadores[jugador1]+"!");
+                                    bjugador2.setText("¡Pulsame "+jugadores[finalJugador]+"!");
+
+                                    bjugador1.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            fondo.setOnClickListener(null);
+                                            bjugador1.setVisibility(View.INVISIBLE);
+                                            bjugador2.setVisibility(View.INVISIBLE);
+                                            label2.setText("¡Has ganado "+jugadores[jugador1]+"!");
+                                            label2.setVisibility(View.VISIBLE);
+
+                                        }
+                                    });
+
+
                                         bjugador2.setVisibility(View.VISIBLE);
-                                        bjugador2.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                bjugador1.setVisibility(View.INVISIBLE);
-                                                bjugador2.setVisibility(View.INVISIBLE);
-                                                label2.setText("Has perdido "+jugadores[finalJugador]+" :(");
-                                                label2.setVisibility(View.VISIBLE);
 
-                                            }
-                                        });
+                                    bjugador2.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            fondo.setOnClickListener(null);
+                                            bjugador1.setVisibility(View.INVISIBLE);
+                                            bjugador2.setVisibility(View.INVISIBLE);
+                                            label2.setText("¡Has ganado "+jugadores[finalJugador]+"!");
+                                            label2.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+
+                                } else {
+
+                                    handler.postDelayed(this::run,(int) (Math.random() * 5000)+1000);
+
+                                    bjugador1.setText("¡NO me Pulses "+jugadores[jugador1]+"!");
+
+                                        bjugador1.setVisibility(View.VISIBLE);
+
+                                    bjugador1.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            fondo.setOnClickListener(null);
+                                            bjugador1.setVisibility(View.INVISIBLE);
+                                            bjugador2.setVisibility(View.INVISIBLE);
+                                            label2.setText("Has perdido "+jugadores[jugador1]+" :(");
+                                            label2.setVisibility(View.VISIBLE);
+                                            handler.removeCallbacksAndMessages(null);
+
+                                        }
+                                    });
+                                    bjugador2.setText("¡NO me Pulses "+jugadores[finalJugador]+"!");
 
 
-                                        handler.postDelayed(this::run,(int) (Math.random() * 5000));
+                                        bjugador2.setVisibility(View.VISIBLE);
+
+                                    bjugador2.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            fondo.setOnClickListener(null);
+                                            bjugador1.setVisibility(View.INVISIBLE);
+                                            bjugador2.setVisibility(View.INVISIBLE);
+                                            label2.setText("Has perdido "+jugadores[finalJugador]+" :(");
+                                            label2.setVisibility(View.VISIBLE);
+                                            handler.removeCallbacksAndMessages(null);
+                                        }
+                                    });
+
+
+
+
 
                                 }
-                            }
-                            {
-
-                        }
-                    };
 
 
-                    handler.postDelayed(runnable, (int) (Math.random() * 5500));
 
-                }
+                        };
+                            };
+
+
+
+                    handler.postDelayed(runnable, (int) (Math.random() * 5500)+1000);
+
+
             }
 
         });
