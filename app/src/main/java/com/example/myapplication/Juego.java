@@ -25,6 +25,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Juego extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -47,7 +48,7 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
         anyadir = (Button)findViewById(R.id.button);
         regresar = (Button)findViewById(R.id.bRegresar);
         listView = (ListView) findViewById(R.id.listview);
-        listView.setOnItemClickListener(this);
+
         anyadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,9 +65,47 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
         empezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Juego.this, Ruleta.class);
-                i.putStringArrayListExtra("Jugadores", (ArrayList<String>) players);
-                startActivity(i);
+
+                if(players.size() > 1) {
+                    Random generator = new Random();
+                    int number = generator.nextInt(3) + 1;
+                    Class activity =null;
+                    switch (number) {
+                        case 1:
+                            activity = Ruleta.class;
+                            break;
+                        case 2:
+                            activity = startedGame.class;
+                            break;
+                        default:
+                            activity = JuegoPulsarBoton.class;
+                            break;
+                    }
+                    Intent i = new Intent(Juego.this, activity);
+                    i.putStringArrayListExtra("Jugadores", (ArrayList<String>) players);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(Juego.this,"Minimo 2 jugadores para empezar",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listItem, long l) {
+                new AlertDialog.Builder(Juego.this).setTitle("¿Quieres eliminar el nombre "+ players.get(listItem)+"?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        players.remove(listItem);
+                        adapter.notifyDataSetChanged();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create().show();
+
+                return false;
             }
         });
         regresar.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +113,8 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
             public void onClick(View view) {
                 switch (view.getId()) {
                 case R.id.bRegresar:
-                Intent i = new Intent(Juego.this, MainActivity.class);
+
+                    Intent i = new Intent(Juego.this, MainActivity.class);
                 startActivity(i);
                 }
             }
@@ -83,8 +123,10 @@ public class Juego extends AppCompatActivity implements AdapterView.OnItemClickL
 
 
 
-
-
+    public void onBackPressed() {
+        Intent i = new Intent(Juego.this, MainActivity.class);
+        startActivity(i);
+    }
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Toast.makeText(this,"Item clicked"+i, Toast.LENGTH_SHORT).show();
