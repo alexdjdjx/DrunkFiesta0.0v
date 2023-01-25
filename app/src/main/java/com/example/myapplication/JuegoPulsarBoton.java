@@ -107,8 +107,8 @@ private ConstraintLayout fondo;
                                                         throw new RuntimeException(e);
                                                     }
                                                     Random generator = new Random();
-                                                    int number = generator.nextInt(2) + 1;
-                                                    Class activity;
+                                                    int number = generator.nextInt(4) + 1;
+                                                    Class activity =null;
                                                     switch (number) {
                                                         case 1:
                                                             activity = Ruleta.class;
@@ -117,12 +117,14 @@ private ConstraintLayout fondo;
                                                             activity = startedGame.class;
                                                             break;
                                                         case 3:
-                                                            activity= Mimica.class;
+                                                            activity = Mimica.class;
+                                                            break;
+                                                        case 4:
+                                                            activity = JuegoRestarPulsaciones.class;
                                                             break;
                                                         default:
                                                             activity = JuegoPulsarBoton.class;
                                                             break;
-
                                                     }Intent i = new Intent(JuegoPulsarBoton.this, activity);
                                                     i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
                                                     startActivity(i);
@@ -154,8 +156,8 @@ private ConstraintLayout fondo;
                                                         throw new RuntimeException(e);
                                                     }
                                                     Random generator = new Random();
-                                                    int number = generator.nextInt(2) + 1;
-                                                    Class activity;
+                                                    int number = generator.nextInt(4) + 1;
+                                                    Class activity =null;
                                                     switch (number) {
                                                         case 1:
                                                             activity = Ruleta.class;
@@ -164,12 +166,14 @@ private ConstraintLayout fondo;
                                                             activity = startedGame.class;
                                                             break;
                                                         case 3:
-                                                            activity= Mimica.class;
+                                                            activity = Mimica.class;
+                                                            break;
+                                                        case 4:
+                                                            activity = JuegoRestarPulsaciones.class;
                                                             break;
                                                         default:
                                                             activity = JuegoPulsarBoton.class;
                                                             break;
-
                                                     } Intent i = new Intent(JuegoPulsarBoton.this, activity);
                                                     i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
                                                     startActivity(i);
@@ -205,8 +209,8 @@ private ConstraintLayout fondo;
                                                         throw new RuntimeException(e);
                                                     }
                                                     Random generator = new Random();
-                                                    int number = generator.nextInt(2) + 1;
-                                                    Class activity;
+                                                    int number = generator.nextInt(4) + 1;
+                                                    Class activity =null;
                                                     switch (number) {
                                                         case 1:
                                                             activity = Ruleta.class;
@@ -215,12 +219,14 @@ private ConstraintLayout fondo;
                                                             activity = startedGame.class;
                                                             break;
                                                         case 3:
-                                                            activity= Mimica.class;
+                                                            activity = Mimica.class;
+                                                            break;
+                                                        case 4:
+                                                            activity = JuegoRestarPulsaciones.class;
                                                             break;
                                                         default:
                                                             activity = JuegoPulsarBoton.class;
                                                             break;
-
                                                     } Intent i = new Intent(JuegoPulsarBoton.this, activity);
                                                     i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
                                                     startActivity(i);
@@ -253,8 +259,8 @@ private ConstraintLayout fondo;
                                                         throw new RuntimeException(e);
                                                     }
                                                     Random generator = new Random();
-                                                    int number = generator.nextInt(2) + 1;
-                                                    Class activity;
+                                                    int number = generator.nextInt(4) + 1;
+                                                    Class activity =null;
                                                     switch (number) {
                                                         case 1:
                                                             activity = Ruleta.class;
@@ -263,13 +269,15 @@ private ConstraintLayout fondo;
                                                             activity = startedGame.class;
                                                             break;
                                                         case 3:
-                                                            activity= Mimica.class;
+                                                            activity = Mimica.class;
+                                                            break;
+                                                        case 4:
+                                                            activity = JuegoRestarPulsaciones.class;
                                                             break;
                                                         default:
                                                             activity = JuegoPulsarBoton.class;
                                                             break;
-
-                                                    } Intent i = new Intent(JuegoPulsarBoton.this, activity);
+                                                    }Intent i = new Intent(JuegoPulsarBoton.this, activity);
                                                     i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
                                                     startActivity(i);
                                                     overridePendingTransition(0, 0);

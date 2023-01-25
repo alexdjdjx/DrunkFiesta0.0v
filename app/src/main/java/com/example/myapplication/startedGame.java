@@ -46,8 +46,8 @@ public class startedGame extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Random generator = new Random();
-                int number = generator.nextInt(3) + 1;
-                Class activity = null;
+                int number = generator.nextInt(4) + 1;
+                Class activity =null;
                 switch (number) {
                     case 1:
                         activity = Ruleta.class;
@@ -56,12 +56,14 @@ public class startedGame extends AppCompatActivity {
                         activity = startedGame.class;
                         break;
                     case 3:
-                        activity= Mimica.class;
+                        activity = Mimica.class;
+                        break;
+                    case 4:
+                        activity = JuegoRestarPulsaciones.class;
                         break;
                     default:
                         activity = JuegoPulsarBoton.class;
                         break;
-
                 } Intent i = new Intent(startedGame.this,activity);
                 i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
                 startActivity(i);

@@ -59,8 +59,8 @@ private ConstraintLayout fondo;
                     public void onClick(View view) {
                         if(!isSpinning) {
                             Random generator = new Random();
-                            int number = generator.nextInt(3) + 1;
-                            Class activity = null;
+                            int number = generator.nextInt(4) + 1;
+                            Class activity =null;
                             switch (number) {
                                 case 1:
                                     activity = Ruleta.class;
@@ -69,12 +69,14 @@ private ConstraintLayout fondo;
                                     activity = startedGame.class;
                                     break;
                                 case 3:
-                                    activity= Mimica.class;
+                                    activity = Mimica.class;
+                                    break;
+                                case 4:
+                                    activity = JuegoRestarPulsaciones.class;
                                     break;
                                 default:
                                     activity = JuegoPulsarBoton.class;
                                     break;
-
                             }
                             Intent i = new Intent(Ruleta.this, activity);
                             i.putStringArrayListExtra("Jugadores", (ArrayList<String>) lista);
